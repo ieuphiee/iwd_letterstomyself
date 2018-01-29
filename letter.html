@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Letter</title>
+
+<!----------------------favicon/import stylesheets---------------------------->
+
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="letterstyle.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="jquery.signaturepad.css">
+
+<!----------------------import google fonts---------------------------->
+
+<link href='https://fonts.googleapis.com/css?family=Unica+One|PT+Sans|Arimo|Cutive+Mono|Amatic+SC|PT+Mono|Roboto+Mono|Reenie Beanie' rel='stylesheet' type='text/css'>
+
+<!-----------------------import external javascript files--------------------------->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="varsave.js"></script>
+<script src="cookie.js"></script>
+<script src="cookie-script.js"></script>
+<script src="fadein.js"></script>
+<script src="compute-cost"></script>
+
+<!----------------------additional javascript, internal---------------------------->
+
+<script>
+// fade in effect for loading pages
+$(document).ready(function(){$("body").hide().fadeIn(1000);});
+</script>
+
+<script>
+// retrieve saved cookies 
+var recipient
+var day
+var destination
+var message
+var mlength //count number of characters in message
+var fCost 
+var stamp
+var signature
+
+restoreVar('message')
+restoreVar('mlength')
+restoreVar('fCost')
+restoreVar('recipient')
+restoreVar('day')
+restoreVar('destination')
+restoreVar('stamp')
+restoreVar('signature')
+
+//var fCost = parseInt(fCost, 1000)
+var costMessage = mlength*0.10
+var fCost = fCost+costMessage
+var fCost = fCost.toFixed(2);
+</script>
+
+<script>
+function postage() {
+	document.getElementById('postage').innerHTML = "$"+fCost
+}
+</script>
+</head>
+
+<!----------------------end of head/beginning of body---------------------------->
+
+<body onLoad="postage()">
+<div id="my_popup">
+	<h1>Total Postage Due:</h1>
+    
+	 <div id="postage">_</div>
+
+<a class="my_popup_close"><center>Close</center></a>
+
+  </div>
+
+  <!-- Include jQuery -->
+  
+  <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+
+  <!-- Include jQuery Popup Overlay -->
+  <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+
+  <script>
+    $(document).ready(function() {
+
+      // Initialize the plugin
+      $('#my_popup').popup('show');
+
+    });
+  </script>
+<div id="wrapper">
+<div id="letter">
+<div id="stampOver"></div> <!--black transparent stamps overlay-->
+<div id="stamp"> <!--user's selected stamp-->
+<script>
+// display stamp based on cookie retrieval
+	if (stamp == "cherryblossom") {
+	document.write("<img align='center' "+"src='images/01.png'> " +"<br><br>")}
+	else if (stamp == "chubbycat") {
+	document.write("<img align='center' "+"src='images/04.png'> " +"<br><br>")}
+	else if (stamp == "flowerdoodle") {
+	document.write("<img align='center' "+"src='images/07.png'> " +"<br><br>")}
+	else if (stamp == "colorstars") {
+	document.write("<img align='center' "+"src='images/05.png'> " +"<br><br>")}
+	else if (stamp == "floralprint") {
+	document.write("<img align='center' "+"src='images/03.png'> " +"<br><br>")}
+	else if (stamp == "daisy") {
+	document.write("<img align='center' "+"src='images/02.png'> " +"<br><br>")}
+	else if (stamp == "fanflower") {
+	document.write("<img align='center' "+"src='images/08.png'> " +"<br><br>")}
+	else if (stamp == "geo") {
+	document.write("<img align='center' "+"src='images/09.png'> " +"<br><br>")}
+	else if (stamp == "pink") {
+	document.write("<img align='center' "+"src='images/10.png'> " +"<br><br>")}
+</script>
+</div>
+
+<!----------------------recipient, destination, date---------------------------->
+
+<div id="topleft"> 
+<script>
+document.write('To: '+recipient+'<br>')
+document.write(day+'<br>')
+document.write(destination+'<br>')
+</script>
+</div>
+
+<!----------------------message content---------------------------->
+
+<div id="message">
+<script>
+document.write(message)
+document.write(signature)
+</script>
+</div>
+</div>
+
+<!----------------------link back to home page---------------------------->
+
+<div id="back"><a href="index.html"> LETTERS TO MYSELF </a></div>
+
+</div>
+</body>
+</html>

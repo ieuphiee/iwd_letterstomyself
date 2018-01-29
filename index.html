@@ -1,0 +1,270 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Letters To Myself</title>
+
+<!----------------------favicon/import stylesheets---------------------------->
+
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link href="style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="jquery.signaturepad.css">
+
+<!----------------------import google fonts---------------------------->
+
+<link href='https://fonts.googleapis.com/css?family=PT+Sans|Cutive+Mono|Amatic+Sc|PT+Mono|Roboto+Mono' rel='stylesheet' type='text/css'>
+
+<!----------------------import external javascript---------------------------->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="varsave.js"></script>
+<script src="cookie.js"></script>
+<script src="cookie-script.js"></script>
+<script src="fadein.js"></script>
+<script src="compute-cost"></script>
+
+<!----------------------additional javascript, internal---------------------------->
+
+
+<script>
+
+// fade in effect for loading pages
+$(document).ready(function(){$("body").hide().fadeIn(1000);});
+
+// gets stamp choice and saves it into a cookie 
+var stamp
+function getStamp() {
+	stamp = document.getElementById('stampChoice').value
+	saveVar('stamp')
+}
+
+</script>
+</head>
+
+<!----------------------end of head/beginnning of body---------------------------->
+
+<body>
+<div id="wrapper">
+
+<!----------------------navigation tabs---------------------------->
+
+<ul class="tabs-menu">
+<li class="current"><a href="#tab-1">Home</a></li>
+<li><a href="#tab-2">Postage</a></li>
+<li><a href="#tab-3">Write</a></li>
+<li><a href="#tab-4">Sign</a></li>
+<li><a href="#tab-5">Design Document</a></li>
+</ul>
+
+<!----------------------postal background and content container---------------------------->
+
+<div id="background">
+<div id="tabs-container">
+<div class="tab">
+
+<!----------------------tab 1 // "home page"---------------------------->
+
+<div id="tab-1" class="tab-content">
+<h1><b>LETTERS TO MYSELF</b></h1><br>
+<p>
+<i>How wonderful it is to be able to write someone a letter! To feel like conveying your thoughts to a person, to sit at your desk and pick up a pen, to put your thoughts into words like this is truly marvelous.</i> <br>- Haruki Murakami</p><br>
+
+<h1><b>SEND A LETTER</b></h1><br>
+<p>
+Send a (future) letter to yourself!<br>
+To start, calculate postage by selecting <b>postage</b>.<br>
+Then compose your letter by selecting <b>write</b>.<br>
+Finally, sign your letter by selecting <b>sign</b>.<br>
+Once finished, you will be able to view your letter.
+
+</div>
+
+
+
+<!----------------------tab 2 // "postage calc"---------------------------->
+
+<div id="tab-2" class="tab-content">
+<h1>Postage Calculator*</h1>
+<hr>
+<form id="postage">
+<label for="domeInt">Domestic or International?</label>
+<select id="domeInt" name="domeInt">
+<option selected="selected">Please Select</option>
+<option value="domestic">Domestic</option>
+<option value="international">International</option>
+</select><br>
+<label for="dest">Destination:</label><input type="text" name="dest" id="dest" placeholder="Northampton, Massachusetts" required/><br>
+<label for="ds">Date Sent:</label><input type="date" name="ds" id="ds" required/><br>
+<label for="tbr">Date To Be Received:</label><input type="date" name="tbr" id="tbr" required/><br>
+<label for="serv">Method of Delivery</label>
+<select id="serv" name="serv">
+<option selected="selected">Please Select</option>
+<option value="standard">Standard (2-3 Weeks)</option>
+<option value="expedite">Expedited (5-7 Days)</option>
+</select>
+<br>
+<input type="button" id="estimate" onClick="computeCost()" value="Estimate">
+<input type="text" name="tcost" id="tcost" readonly placeholder="$0.00"/><br>
+</form>
+<p class="tab2">*final prices will vary depending on message length.</p>
+</div>
+
+<!----------------------tab 3/"send letter"---------------------------->
+
+<div id="tab-3" class="tab-content">
+<h1>Write Letter</h1><hr>
+<form id="userform">
+  
+<label for="recipient">To:</label><input type="text" name="recipient" id="recipient"/><br>
+<label for="day">Date:</label><input type="text" name="day" id="day" placeholder="Wednesday, January 4, 2016" required/><br>
+<label for="message">Message:</label><textarea name="message" id="message" form="userform" required></textarea><br>
+
+<button type="submit" class="my_popup_open" onClick="save()">Save</button>
+
+<div id="my_popup">
+	<h1>MESSAGE SAVED!</h1>
+    
+	Your message has been saved! If you are finished, proceed to the next page to <b>sign and stamp</b> your letter.
+
+<a class="my_popup_close">Close</a>
+
+  </div>
+
+  <!-- Include jQuery -->
+  
+  <script src="https://code.jquery.com/jquery-1.8.2.min.js"></script>
+
+  <!-- Include jQuery Popup Overlay -->
+  <script src="https://cdn.rawgit.com/vast-engineering/jquery-popup-overlay/1.7.13/jquery.popupoverlay.js"></script>
+
+  <script>
+    $(document).ready(function() {
+
+      // Initialize the plugin
+      $('#my_popup').popup();
+
+    });
+  </script>
+</form>
+
+  
+</div>
+
+<!----------------------tab 4/"sign and stamp"---------------------------->
+
+<div id="tab-4" class="tab-content">
+<h1>>>> Sign & Stamp</h1><hr>
+<form method="get" action="letter.html" class="sigPad">
+<label for="name">Print Your Name</label>
+<input type="text" name="name" id="name" class="name">
+<p class="typeItDesc">Review Your Signature</p>
+<p class="drawItDesc">Draw Your Signature</p>
+<ul class="sigNav">
+  <li class="typeIt"><a href="#type-it">Type It</a></li>
+  <li class="drawIt"><a href="#draw-it">Draw It</a></li>
+  <li class="clearButton"><a href="#clear">Clear</a></li>
+</ul>
+<div class="sig sigWrapper">
+  <div class="typed"></div>
+  <canvas class="pad" width="198" height="55"></canvas>
+  <input type="hidden" name="output" class="output">
+</div>
+<select id="stampChoice" name="stampChoice">
+<option selected="selected">Choose A Stamp</option>
+<option value="cherryblossom">01 Cherry Blossom</option>
+<option value="chubbycat">02 Chubby Cat</option>
+<option value="flowerdoodle">03 Flower Doodle</option>
+<option value="colorstars">04 Colorful Stars</option>
+<option value="floralprint">05 Floral Print</option>
+<option value="daisy">06 Daisy</option>
+<option value="fanflower">07 Fan Flower</option>
+<option value="geo">08 Geometry</option>
+<option value="pink">09 Pink Flower</option>
+</select>
+<button type="submit" id="sign" onClick="getStamp()">Sign</button>
+</form>
+
+<script src="jquery.signaturepad.js"></script>
+<script>
+// script for signature pag
+$(document).ready(function() {
+  $('.sigPad').signaturePad();
+});
+</script>  
+<script src="json2.min.js"></script>
+
+<!----------------------table of stamps---------------------------->
+  
+<table>
+  <tr>
+    <td><img src="images/01.png"></td>
+    <td><img src="images/04.png"></td>
+    <td><img src="images/07.png"></td>
+  </tr>
+  <tr>
+    <td>01</td>
+    <td>02</td>
+    <td>03</td>
+  </tr>
+  <tr>
+    <td><img src="images/05.png"></td>
+    <td><img src="images/03.png"></td>
+    <td><img src="images/02.png"></td>
+  </tr>
+  <tr>
+    <td>04</td>
+    <td>05</td>
+    <td>06</td>
+  </tr>
+  <tr>
+    <td><img src="images/08.png"></td>
+    <td><img src="images/09.png"></td>
+    <td><img src="images/10.png"></td>
+  </tr>
+  <tr>
+    <td>07</td>
+    <td>08</td>
+    <td>09</td>
+  </tr>
+</table>
+</div>
+
+<!----------------------tab 5/design document---------------------------->
+
+<div id="tab-5" class="tab-content">
+<h1>Design Document</h1><hr>
+<p><b>Screenshots</b><br><br>
+<img src="screenshotfront.PNG" width="100%">
+<img src="screenshotback.PNG" width="100%">
+<br><br>
+<b>Mission Statement</b>: To create a website of the imagination that allows users to write a letter to themselves in the future.<br><br>
+<b>Requirements:</b><br>
+<b>Forms | Cookies | Interaction | JavaScript:</b><br> Forms and cookies are heavily incorported via the postage calculator, letter writing system, and the signature/stamping tool. Specifically, the use of my own <i>computeCost.js</i> script allows users to input information about the destination and times of their letter to be sent as well as the method of delivery (standard or expedited). The computeCost script activates via onClick on the Estimate button, collects the information the user inputs, calculates the postage, and returns the estimated cost of postage in the readonly box next to the Estimate button. For example, if a user selects International mailing, their postage will be significantly higher than Domestic mailing. Sending mail during the peak holiday months is also more expensive than during the summer months. These factors are all taken into consideration when calculating cost of postage in the computeCost script.<br><br>
+In addition, all three forms on each tab (postage, write, and sign/stamp) utilize the <i>cookie-script.js</i> script to save information about the letter into cookies for later viewing when the user has finished writing his or her letter and wants to see the final product. For example, in the postage calculator, if a user enters "Northampton, Massachusetts" and clicks the Estimate button, this will appear as the destination on the final letter. In composing the content of the letter, if a user needs to make changes to the letter after already clicking "Save", he or she must click "Save" again to overwrite the old cookie. A <a href="http://dev.vast.com/jquery-popup-overlay/">jQuery</a> popup will appear informing the user that the message has been saved.<br><br>
+ All the information the user enters is saved into cookies and later retrieved to be presented as a fancy letter after signing and stamping (the form on the sign and stamp page will redirect the user to the next page letter.html). In addition, the postage calculator provides an <i>estimate</i> of the cost of postage, but depending on the length of the message written, this estimated cost will change (via scripting), and the page showing the final letter will show the final cost in a small jQuery pop-up.<br><br>
+<b>User Feedback:</b><br>
+User feedback is mostly achieved through the subtle act of a link or a button changing color/cursor upon hovering over it. In addition, on the sign and stamp tab, if a user fails to type his/her name, a red notice will appear requiring his/her typed name.<br><br>
+
+<b>Canvas Graphics:</b><br>
+Canvas graphics is implemented through <a href="https://github.com/thomasjbradley/signature-pad">Signature Pad</a>, a jQuery plugin that allows users to draw their signature. Users have the option of typing their signature or drawing their signature. Substantial modifications were made to the signature pad's stylesheet such as the appearance of square buttons, font styles, and other subtle changes in aesthetic. <br><br>
+<b>Theme & Appearance | Navigation Aids | Layout:</b>
+<br>
+"Postcard flying throught the air" theme assists in achieving a cartoon like, whimsical feel. Clean and functional design through one centered (and scrollable) container with easy to access navigation tabs. A separate stylesheet for the final letter was designed, and slight modifications were made to the postal container (e.g., grid design and black and white stamps) to better indicate to the user their finished product. <br><br>
+<b>Stylesheets:</b><br>
+There is one stylesheet for the index page (writing process) and one stylesheet for the letter page (final product). There is also another stylesheet for the signature pad plug-in.<br><br>
+<b>Color choices:</b> Classic blue, red, and white postal colors 
+<br><br>
+<b>Typography:</b> Mainly "Typewriter" fonts, but the final letter uses a handwritten font
+<br><br>
+<b>Additional Features</b><br>
+<a href="http://www.w3schools.com/jquery/eff_fadein.asp">Simple Fade In Script</a> | <a href="http://jsfiddle.net/syahrasi/us8uc/">jQuery Tab Layout</a> (modified CSS) | <a href="http://www.dyn-web.com/code/basics/random_image/random_img_js.php">Display Stamp Image Script</a> (removed randomizer, added conditionals: if user selects stamp 1, this value will be saved into a cookie, retrieved in the final product, and processed to display its corresponding image)<br><br>
+
+<b>Images:</b><br>
+Stamps and postcard images were all designed in Photoshop. Otherwise, the lack of images on the site was motivated by my decision to provide a clean canvas for users to craft their message. Often times, the act of letter writing is done in an uncluttered, unobtrusive space that allows for meaningful reflection.
+</p>
+
+
+</div>
+</div></div></div></div>
+</body></html>
